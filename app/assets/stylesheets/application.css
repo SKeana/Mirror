@@ -1,10 +1,74 @@
 /*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
+ * Application styles.
  */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #222;
+  background: #fff;
+}
+
+.calendar {
+  --time-col: 60px;
+  --hour-height: 48px;
+  display: grid;
+  grid-template-columns: var(--time-col) repeat(7, 1fr);
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  width: 100vw;
+}
+
+.calendar__corner {
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #eee;
+  background: #fafafa;
+}
+
+.calendar__day-header {
+  padding: 8px 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #eee;
+  background: #fafafa;
+}
+
+.calendar__day-header:last-child {
+  border-right: none;
+}
+
+.calendar__times {
+  display: grid;
+  grid-template-rows: repeat(24, var(--hour-height));
+  border-right: 1px solid #eee;
+}
+
+.calendar__time-label {
+  font-size: 11px;
+  color: #888;
+  padding: 2px 6px;
+  text-align: right;
+  transform: translateY(-7px);
+}
+
+.calendar__day-column {
+  display: grid;
+  grid-template-rows: repeat(24, var(--hour-height));
+  border-right: 1px solid #eee;
+}
+
+.calendar__day-column:last-child {
+  border-right: none;
+}
+
+.calendar__hour-cell {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.calendar__hour-cell:last-child {
+  border-bottom: none;
+}

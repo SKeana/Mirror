@@ -1,0 +1,23 @@
+<% days = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday] %>
+<% hours = (0..23).to_a %>
+
+<div class="calendar">
+  <div class="calendar__corner"></div>
+  <% days.each do |day| %>
+    <div class="calendar__day-header"><%= day %></div>
+  <% end %>
+
+  <div class="calendar__times">
+    <% hours.each do |h| %>
+      <div class="calendar__time-label"><%= format("%02d:00", h) %></div>
+    <% end %>
+  </div>
+
+  <% days.each do |day| %>
+    <div class="calendar__day-column" data-day="<%= day %>">
+      <% hours.each do |h| %>
+        <div class="calendar__hour-cell" data-hour="<%= h %>"></div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
