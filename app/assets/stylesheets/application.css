@@ -14,6 +14,7 @@
   --border: #dddddd;
   --border-faint: #f0f0f0;
   --muted: #888888;
+  --today-tint: rgba(21, 120, 17, 0.15);
 }
 
 html.dark {
@@ -149,6 +150,11 @@ body {
 
 .calendar__hour-cell {
   border-bottom: 1px solid var(--border-faint);
+}
+
+.calendar__day-header.is-today,
+.calendar__day-column.is-today {
+  background: var(--today-tint);
 }
 
 .calendar__hour-cell:last-child {

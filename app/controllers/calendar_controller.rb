@@ -5,6 +5,7 @@ class CalendarController < ApplicationController
     @prev_week = @week_start - 7
     @next_week = @week_start + 7
     @this_week = Date.current - Date.current.wday
+    @today = Date.current
   end
 
   private

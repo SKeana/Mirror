@@ -29,8 +29,9 @@
 
   <div class="calendar">
     <div class="calendar__corner"></div>
-    <% days.each do |day| %>
-      <div class="calendar__day-header"><%= day %></div>
+    <% days.each_with_index do |day, i| %>
+      <% date = @week_start + i %>
+      <div class="calendar__day-header <%= 'is-today' if date == @today %>"><%= day %></div>
     <% end %>
 
     <div class="calendar__times">
@@ -39,8 +40,9 @@
       <% end %>
     </div>
 
-    <% days.each do |day| %>
-      <div class="calendar__day-column" data-day="<%= day %>">
+    <% days.each_with_index do |day, i| %>
+      <% date = @week_start + i %>
+      <div class="calendar__day-column <%= 'is-today' if date == @today %>" data-day="<%= day %>" data-date="<%= date.iso8601 %>">
         <% hours.each do |h| %>
           <div class="calendar__hour-cell" data-hour="<%= h %>"></div>
         <% end %>
