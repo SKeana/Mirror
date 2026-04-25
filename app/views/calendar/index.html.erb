@@ -1,23 +1,50 @@
 <% days = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday] %>
 <% hours = (0..23).to_a %>
 
-<div class="calendar">
-  <div class="calendar__corner"></div>
-  <% days.each do |day| %>
-    <div class="calendar__day-header"><%= day %></div>
-  <% end %>
+<div class="page">
+  <div class="toolbar">
+    <%= link_to "‹", root_path(date: @prev_week.iso8601),
+                class: "toolbar__nav",
+                aria: { label: "Previous week" } %>
 
-  <div class="calendar__times">
-    <% hours.each do |h| %>
-      <div class="calendar__time-label"><%= format("%02d:00", h) %></div>
-    <% end %>
+    <span class="toolbar__week-date">
+      <%= @week_start.strftime("Week of %A, %b %-d, %Y") %>
+    </span>
+
+    <%= link_to "Today", root_path(date: @this_week.iso8601),
+                class: "toolbar__today" %>
+
+    <button type="button"
+            class="toolbar__dark-toggle"
+            data-controller="dark-mode"
+            data-action="click->dark-mode#toggle"
+            aria-label="Toggle dark mode">
+      <span aria-hidden="true">&#9728;&#65039;/&#127769;</span>
+    </button>
+
+    <%= link_to "›", root_path(date: @next_week.iso8601),
+                class: "toolbar__nav",
+                aria: { label: "Next week" } %>
   </div>
 
-  <% days.each do |day| %>
-    <div class="calendar__day-column" data-day="<%= day %>">
+  <div class="calendar">
+    <div class="calendar__corner"></div>
+    <% days.each do |day| %>
+      <div class="calendar__day-header"><%= day %></div>
+    <% end %>
+
+    <div class="calendar__times">
       <% hours.each do |h| %>
-        <div class="calendar__hour-cell" data-hour="<%= h %>"></div>
+        <div class="calendar__time-label"><%= format("%02d:00", h) %></div>
       <% end %>
     </div>
-  <% end %>
+
+    <% days.each do |day| %>
+      <div class="calendar__day-column" data-day="<%= day %>">
+        <% hours.each do |h| %>
+          <div class="calendar__hour-cell" data-hour="<%= h %>"></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

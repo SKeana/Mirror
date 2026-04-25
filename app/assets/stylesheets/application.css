@@ -2,39 +2,121 @@
  * Application styles.
  */
 
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: #222;
-  background: #fff;
-}
-
-.calendar {
+:root {
+  --header-height: 40px;
   --time-col: 60px;
   --hour-height: 48px;
+
+  --bg: #ffffff;
+  --fg: #222222;
+  --bg-inv: #1a1a1a;
+  --fg-inv: #f5f5f5;
+  --border: #dddddd;
+  --border-faint: #f0f0f0;
+  --muted: #888888;
+}
+
+html.dark {
+  --bg: #1a1a1a;
+  --fg: #f5f5f5;
+  --bg-inv: #ffffff;
+  --fg-inv: #222222;
+  --border: #333333;
+  --border-faint: #2a2a2a;
+  --muted: #999999;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ---------- Toolbar (opposite color of page) ---------- */
+
+.toolbar {
+  height: var(--header-height);
+  background: var(--bg-inv);
+  color: var(--fg-inv);
+  display: grid;
+  grid-template-columns: auto 1fr auto auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.toolbar__nav,
+.toolbar__today,
+.toolbar__dark-toggle {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 14px;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.toolbar__nav {
+  font-size: 18px;
+  padding: 2px 10px;
+}
+
+.toolbar__nav:hover,
+.toolbar__today:hover,
+.toolbar__dark-toggle:hover {
+  background: rgba(127, 127, 127, 0.2);
+}
+
+.toolbar__week-date {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ---------- Calendar grid ---------- */
+
+.calendar {
+  flex: 1;
   display: grid;
   grid-template-columns: var(--time-col) repeat(7, 1fr);
-  grid-template-rows: auto 1fr;
-  height: 100vh;
-  width: 100vw;
+  grid-template-rows: var(--header-height) 1fr;
+  overflow: hidden;
 }
 
 .calendar__corner {
-  border-bottom: 1px solid #ddd;
-  border-right: 1px solid #eee;
-  background: #fafafa;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border-faint);
+  background: var(--bg);
 }
 
 .calendar__day-header {
-  padding: 8px 0;
-  text-align: center;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 600;
   font-size: 14px;
-  border-bottom: 1px solid #ddd;
-  border-right: 1px solid #eee;
-  background: #fafafa;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border-faint);
+  background: var(--bg);
+  color: var(--fg);
 }
 
 .calendar__day-header:last-child {
@@ -44,12 +126,12 @@ body {
 .calendar__times {
   display: grid;
   grid-template-rows: repeat(24, var(--hour-height));
-  border-right: 1px solid #eee;
+  border-right: 1px solid var(--border-faint);
 }
 
 .calendar__time-label {
   font-size: 11px;
-  color: #888;
+  color: var(--muted);
   padding: 2px 6px;
   text-align: right;
   transform: translateY(-7px);
@@ -58,7 +140,7 @@ body {
 .calendar__day-column {
   display: grid;
   grid-template-rows: repeat(24, var(--hour-height));
-  border-right: 1px solid #eee;
+  border-right: 1px solid var(--border-faint);
 }
 
 .calendar__day-column:last-child {
@@ -66,7 +148,7 @@ body {
 }
 
 .calendar__hour-cell {
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-faint);
 }
 
 .calendar__hour-cell:last-child {
