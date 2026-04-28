@@ -15,6 +15,7 @@
   --border-faint: #f0f0f0;
   --muted: #888888;
   --today-tint: rgba(21, 120, 17, 0.15);
+  --other-month-tint: rgba(0, 0, 0, 0.20);
 }
 
 html.dark {
@@ -25,6 +26,7 @@ html.dark {
   --border: #333333;
   --border-faint: #2a2a2a;
   --muted: #999999;
+  --other-month-tint: rgba(0, 0, 0, 0.40);
 }
 
 * { box-sizing: border-box; }
@@ -251,7 +253,7 @@ body {
 
 .month__cell.is-other-month {
   color: var(--muted);
-  background: rgba(127, 127, 127, 0.04);
+  background: var(--other-month-tint);
 }
 
 .month__cell.is-today {
