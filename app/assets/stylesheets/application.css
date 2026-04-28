@@ -108,6 +108,7 @@ body {
 }
 
 .calendar__day-header {
+  position: relative;
   height: var(--header-height);
   display: flex;
   align-items: center;
@@ -118,6 +119,16 @@ body {
   border-right: 1px solid var(--border-faint);
   background: var(--bg);
   color: var(--fg);
+}
+
+.calendar__day-date {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
 }
 
 .calendar__day-header:last-child {

@@ -31,7 +31,10 @@
     <div class="calendar__corner"></div>
     <% days.each_with_index do |day, i| %>
       <% date = @week_start + i %>
-      <div class="calendar__day-header <%= 'is-today' if date == @today %>"><%= day %></div>
+      <div class="calendar__day-header <%= 'is-today' if date == @today %>">
+        <span class="calendar__day-name"><%= day %></span>
+        <span class="calendar__day-date"><%= date.day %></span>
+      </div>
     <% end %>
 
     <div class="calendar__times">
