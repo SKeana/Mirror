@@ -1,0 +1,27 @@
+<% days = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday] %>
+
+<div class="page">
+  <%= render "toolbar" %>
+
+  <div class="month">
+    <div class="month__weekdays">
+      <% days.each do |day| %>
+        <div class="month__weekday"><%= day %></div>
+      <% end %>
+    </div>
+
+    <div class="month__grid">
+      <% 42.times do |i| %>
+        <% date = @grid_start + i %>
+        <% classes = ["month__cell"] %>
+        <% classes << "is-other-month" if date.month != @month_start.month %>
+        <% classes << "is-today"       if date == @today %>
+        <%= link_to root_path(date: date.iso8601),
+                    class: classes.join(" "),
+                    data: { date: date.iso8601 } do %>
+          <span class="month__date"><%= date.day %></span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,28 @@
 class CalendarController < ApplicationController
   def index
-    base = parse_date(params[:date]) || Date.current
-    @week_start = base - base.wday
-    @prev_week = @week_start - 7
-    @next_week = @week_start + 7
-    @this_week = Date.current - Date.current.wday
+    @view = :week
+    @date = parse_date(params[:date]) || Date.current
+    @week_start = @date - @date.wday
     @today = Date.current
+
+    @label = @week_start.strftime("Week of %A, %b %-d, %Y")
+    @prev_url  = root_path(date: (@week_start - 7).iso8601)
+    @next_url  = root_path(date: (@week_start + 7).iso8601)
+    @today_url = root_path
+  end
+
+  def month
+    @view = :month
+    @date = parse_date(params[:date]) || Date.current
+    @month_start = Date.new(@date.year, @date.month, 1)
+    @month_end   = @month_start.next_month - 1
+    @grid_start  = @month_start - @month_start.wday   # back up to Sunday
+    @today = Date.current
+
+    @label = @month_start.strftime("%B %Y")
+    @prev_url  = month_path(date: @month_start.prev_month.iso8601)
+    @next_url  = month_path(date: @month_start.next_month.iso8601)
+    @today_url = month_path
   end
 
   private

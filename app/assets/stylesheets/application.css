@@ -53,11 +53,35 @@ body {
   background: var(--bg-inv);
   color: var(--fg-inv);
   display: grid;
-  grid-template-columns: auto 1fr auto auto auto;
+  grid-template-columns: auto 1fr auto auto auto auto;
   align-items: center;
   gap: 12px;
   padding: 0 12px;
   border-bottom: 1px solid var(--border);
+}
+
+.toolbar__view-toggle {
+  display: inline-flex;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.toolbar__view-btn {
+  padding: 4px 10px;
+  font-size: 13px;
+  text-decoration: none;
+  color: inherit;
+  border-right: 1px solid currentColor;
+}
+
+.toolbar__view-btn:last-child {
+  border-right: none;
+}
+
+.toolbar__view-btn.is-active {
+  color: var(--bg-inv);
+  background: var(--fg-inv);
 }
 
 .toolbar__nav,
@@ -166,6 +190,85 @@ body {
 .calendar__day-header.is-today,
 .calendar__day-column.is-today {
   background: var(--today-tint);
+}
+
+/* ---------- Month view ---------- */
+
+.month {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.month__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.month__weekday {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  border-right: 1px solid var(--border-faint);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.month__weekday:last-child {
+  border-right: none;
+}
+
+.month__grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  min-height: 0;
+}
+
+.month__cell {
+  position: relative;
+  border-right: 1px solid var(--border-faint);
+  border-bottom: 1px solid var(--border-faint);
+  padding: 6px;
+  color: var(--fg);
+  text-decoration: none;
+  background: var(--bg);
+}
+
+.month__cell:nth-child(7n) {
+  border-right: none;
+}
+
+.month__cell:nth-last-child(-n+7) {
+  border-bottom: none;
+}
+
+.month__cell.is-other-month {
+  color: var(--muted);
+  background: rgba(127, 127, 127, 0.04);
+}
+
+.month__cell.is-today {
+  background: var(--today-tint);
+}
+
+.month__cell:hover {
+  outline: 1px solid var(--border);
+  outline-offset: -1px;
+}
+
+.month__date {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .calendar__hour-cell:last-child {

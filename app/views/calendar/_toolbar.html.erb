@@ -1,0 +1,28 @@
+<div class="toolbar">
+  <%= link_to "‹", @prev_url,
+              class: "toolbar__nav",
+              aria: { label: "Previous #{@view}" } %>
+
+  <span class="toolbar__week-date"><%= @label %></span>
+
+  <%= link_to "Today", @today_url, class: "toolbar__today" %>
+
+  <span class="toolbar__view-toggle">
+    <%= link_to "Week",  root_path(date: @date.iso8601),
+                class: "toolbar__view-btn #{'is-active' if @view == :week}" %>
+    <%= link_to "Month", month_path(date: @date.iso8601),
+                class: "toolbar__view-btn #{'is-active' if @view == :month}" %>
+  </span>
+
+  <button type="button"
+          class="toolbar__dark-toggle"
+          data-controller="dark-mode"
+          data-action="click->dark-mode#toggle"
+          aria-label="Toggle dark mode">
+    <span aria-hidden="true">&#9728;&#65039;/&#127769;</span>
+  </button>
+
+  <%= link_to "›", @next_url,
+              class: "toolbar__nav",
+              aria: { label: "Next #{@view}" } %>
+</div>

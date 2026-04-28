@@ -2,30 +2,7 @@
 <% hours = (0..23).to_a %>
 
 <div class="page">
-  <div class="toolbar">
-    <%= link_to "‹", root_path(date: @prev_week.iso8601),
-                class: "toolbar__nav",
-                aria: { label: "Previous week" } %>
-
-    <span class="toolbar__week-date">
-      <%= @week_start.strftime("Week of %A, %b %-d, %Y") %>
-    </span>
-
-    <%= link_to "Today", root_path(date: @this_week.iso8601),
-                class: "toolbar__today" %>
-
-    <button type="button"
-            class="toolbar__dark-toggle"
-            data-controller="dark-mode"
-            data-action="click->dark-mode#toggle"
-            aria-label="Toggle dark mode">
-      <span aria-hidden="true">&#9728;&#65039;/&#127769;</span>
-    </button>
-
-    <%= link_to "›", root_path(date: @next_week.iso8601),
-                class: "toolbar__nav",
-                aria: { label: "Next week" } %>
-  </div>
+  <%= render "toolbar" %>
 
   <div class="calendar">
     <div class="calendar__corner"></div>
