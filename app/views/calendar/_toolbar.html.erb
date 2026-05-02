@@ -12,6 +12,8 @@
                 class: "toolbar__view-btn #{'is-active' if @view == :week}" %>
     <%= link_to "Month", month_path(date: @date.iso8601),
                 class: "toolbar__view-btn #{'is-active' if @view == :month}" %>
+    <%= link_to "Year",  year_path(date: @date.iso8601),
+                class: "toolbar__view-btn #{'is-active' if @view == :year}" %>
   </span>
 
   <button type="button"

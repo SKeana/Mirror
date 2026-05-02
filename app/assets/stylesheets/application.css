@@ -273,6 +273,85 @@ body {
   font-weight: 500;
 }
 
+/* ---------- Year view ---------- */
+
+.year {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.year__title {
+  font-size: 22px;
+  margin: 0 0 20px 0;
+}
+
+.year__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px 32px;
+}
+
+.year__month {
+  font-size: 11px;
+}
+
+.year__month-name {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.year__weekdays,
+.year__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.year__weekday {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 2px 0;
+}
+
+.year__day {
+  font-size: 11px;
+  padding: 3px 0;
+  text-decoration: none;
+  color: var(--fg);
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.year__day:hover {
+  background: rgba(127, 127, 127, 0.15);
+}
+
+.year__day.is-today {
+  background: var(--today-tint);
+  font-weight: 700;
+}
+
+.year__day.is-empty {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .year__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+  .year__grid { grid-template-columns: 1fr; }
+}
+
 .calendar__hour-cell:last-child {
   border-bottom: none;
 }

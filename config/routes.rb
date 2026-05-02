@@ -11,4 +11,5 @@ Rails.application.routes.draw do
 
   root "calendar#index"
   get "/month", to: "calendar#month", as: :month
+  get "/year",  to: "calendar#year",  as: :year
 end

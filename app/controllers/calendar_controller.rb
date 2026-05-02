@@ -25,6 +25,18 @@ class CalendarController < ApplicationController
     @today_url = month_path
   end
 
+  def year
+    @view = :year
+    @date = parse_date(params[:date]) || Date.current
+    @year = @date.year
+    @today = Date.current
+
+    @label = @year.to_s
+    @prev_url  = year_path(date: Date.new(@year - 1, 1, 1).iso8601)
+    @next_url  = year_path(date: Date.new(@year + 1, 1, 1).iso8601)
+    @today_url = year_path
+  end
+
   private
 
   def parse_date(str)
