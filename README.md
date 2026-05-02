@@ -23,4 +23,4 @@ Things you may want to cover:
 
 * ...
 
-* Test
+* bin/rails server
