@@ -21,10 +21,14 @@
             <% 42.times do |i| %>
               <% date = grid_start + i %>
               <% if date.month == month %>
+                <% has_blocks = @days_with_blocks.include?(date) %>
+                <% klass = "year__day"
+                   klass += " is-today"  if date == @today
+                   klass += " has-blocks" if has_blocks %>
                 <%= link_to "",
                             root_path(date: date.iso8601),
-                            class: "year__day#{' is-today' if date == @today}",
-                            title: date.strftime("%a, %b %-d") %>
+                            class: klass,
+                            title: date.strftime("%a, %b %-d") + (has_blocks ? " · has blocks" : "") %>
               <% else %>
                 <span class="year__day is-empty"></span>
               <% end %>

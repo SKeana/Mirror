@@ -9,6 +9,10 @@ class CalendarController < ApplicationController
     @prev_url  = root_path(date: (@week_start - 7).iso8601)
     @next_url  = root_path(date: (@week_start + 7).iso8601)
     @today_url = root_path
+
+    range_start = @week_start.beginning_of_day
+    range_end   = (@week_start + 7).beginning_of_day
+    @blocks_by_day = TimeBlock.overlapping(range_start, range_end).group_by { |b| b.start_at.to_date }
   end
 
   def month
@@ -23,6 +27,10 @@ class CalendarController < ApplicationController
     @prev_url  = month_path(date: @month_start.prev_month.iso8601)
     @next_url  = month_path(date: @month_start.next_month.iso8601)
     @today_url = month_path
+
+    range_start = @grid_start.beginning_of_day
+    range_end   = (@grid_start + 42).beginning_of_day
+    @blocks_by_day = TimeBlock.overlapping(range_start, range_end).group_by { |b| b.start_at.to_date }
   end
 
   def year
@@ -35,6 +43,12 @@ class CalendarController < ApplicationController
     @prev_url  = year_path(date: Date.new(@year - 1, 1, 1).iso8601)
     @next_url  = year_path(date: Date.new(@year + 1, 1, 1).iso8601)
     @today_url = year_path
+
+    range_start = Date.new(@year, 1, 1).beginning_of_day
+    range_end   = Date.new(@year + 1, 1, 1).beginning_of_day
+    @days_with_blocks = TimeBlock
+      .overlapping(range_start, range_end)
+      .pluck(:start_at).map { |t| t.to_date }.to_set
   end
 
   private

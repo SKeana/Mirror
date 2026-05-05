@@ -1,0 +1,47 @@
+<%= form_with model: time_block, class: "tb-form" do |f| %>
+  <% if time_block.errors.any? %>
+    <div class="tb-form__errors">
+      <% time_block.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :return_to, value: params[:return_to], name: "return_to" if params[:return_to].present? %>
+
+  <label class="tb-form__row">
+    <span>Title</span>
+    <%= f.text_field :title, required: true, autofocus: true %>
+  </label>
+
+  <label class="tb-form__row">
+    <span>Notes</span>
+    <%= f.text_area :notes, rows: 4 %>
+  </label>
+
+  <div class="tb-form__row tb-form__row--two">
+    <label>
+      <span>Start</span>
+      <%= f.datetime_local_field :start_at, value: time_block.start_at&.strftime("%Y-%m-%dT%H:%M"), required: true %>
+    </label>
+    <label>
+      <span>End</span>
+      <%= f.datetime_local_field :end_at, value: time_block.end_at&.strftime("%Y-%m-%dT%H:%M"), required: true %>
+    </label>
+  </div>
+
+  <label class="tb-form__row">
+    <span>Color</span>
+    <%= f.color_field :color, value: (time_block.color.presence || "#3b82f6") %>
+  </label>
+
+  <div class="tb-form__actions">
+    <%= f.submit class: "tb-form__submit" %>
+    <%= link_to "Cancel", root_path, class: "tb-form__cancel" %>
+    <% if time_block.persisted? %>
+      <%= button_to "Delete", time_block_path(time_block), method: :delete,
+                    class: "tb-form__delete",
+                    data: { turbo_confirm: "Delete this block?" } %>
+    <% end %>
+  </div>
+<% end %>

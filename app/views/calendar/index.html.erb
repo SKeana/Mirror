@@ -24,7 +24,26 @@
       <% date = @week_start + i %>
       <div class="calendar__day-column <%= 'is-today' if date == @today %>" data-day="<%= day %>" data-date="<%= date.iso8601 %>">
         <% hours.each do |h| %>
-          <div class="calendar__hour-cell" data-hour="<%= h %>"></div>
+          <% slot_start = Time.zone.local(date.year, date.month, date.day, h, 0) %>
+          <% slot_end   = slot_start + 1.hour %>
+          <%= link_to "",
+                      new_time_block_path(start_at: slot_start.iso8601, end_at: slot_end.iso8601, return_to: "week"),
+                      class: "calendar__hour-cell",
+                      data: { hour: h },
+                      aria: { label: "Add block at #{slot_start.strftime('%a %H:%M')}" } %>
+        <% end %>
+
+        <% (@blocks_by_day[date] || []).each do |block| %>
+          <% start_minutes = block.start_at.hour * 60 + block.start_at.min %>
+          <% end_minutes   = (block.end_at.to_date == date) ? block.end_at.hour * 60 + block.end_at.min : 24 * 60 %>
+          <% top_pct    = (start_minutes / (24.0 * 60)) * 100 %>
+          <% height_pct = ((end_minutes - start_minutes) / (24.0 * 60)) * 100 %>
+          <%= link_to edit_time_block_path(block, return_to: "week"),
+                      class: "tb-block",
+                      style: "top: #{top_pct}%; height: #{height_pct}%; background: #{block.color};" do %>
+            <span class="tb-block__title"><%= block.title %></span>
+            <span class="tb-block__time"><%= block.start_at.strftime("%H:%M") %>–<%= block.end_at.strftime("%H:%M") %></span>
+          <% end %>
         <% end %>
       </div>
     <% end %>
