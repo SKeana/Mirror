@@ -1,4 +1,19 @@
 <div class="toolbar">
+  <div class="toolbar__menu" data-controller="menu">
+    <button type="button"
+            class="toolbar__menu-btn"
+            data-action="click->menu#toggle"
+            aria-label="Open menu">
+      <span class="toolbar__menu-icon" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+    </button>
+    <div class="toolbar__menu-panel" data-menu-target="panel" hidden>
+      <%= link_to "Calendar",  root_path, class: "toolbar__menu-item" %>
+      <%= link_to "New block", new_time_block_path, class: "toolbar__menu-item" %>
+    </div>
+  </div>
+
   <%= link_to "‹", @prev_url,
               class: "toolbar__nav",
               aria: { label: "Previous #{@view}" } %>
