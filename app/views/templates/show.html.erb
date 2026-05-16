@@ -1,0 +1,58 @@
+<% weekdays = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday] %>
+<% blocks_by_offset = @template.template_blocks.order(:start_minute).group_by(&:offset_days) %>
+
+<div class="tb-page tb-page--wide">
+  <h1 class="tb-page__title"><%= @template.name %></h1>
+  <p class="tpl-list__meta">
+    <%= @template.period_type.capitalize %> template · <%= @template.template_blocks.size %> block(s)
+  </p>
+
+  <div class="tpl-editor">
+    <% @template.period_days.times do |offset| %>
+      <% label =
+           if @template.period_type == "weekly"
+             weekdays[offset % 7]
+           else
+             "Day #{offset + 1}"
+           end %>
+      <div class="tpl-day">
+        <div class="tpl-day__head">
+          <strong><%= label %></strong>
+          <%= link_to "+ Add block",
+                      new_template_template_block_path(@template, offset_days: offset),
+                      class: "tpl-day__add" %>
+        </div>
+        <% (blocks_by_offset[offset] || []).each do |b| %>
+          <%= link_to edit_template_template_block_path(@template, b),
+                      class: "tpl-day__block",
+                      style: "border-left: 4px solid #{b.color};" do %>
+            <strong><%= b.title %></strong>
+            <span><%= b.start_time_str %>–<%= b.end_time_str %></span>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="tpl-apply">
+    <h2>Apply this template</h2>
+    <%= form_with url: apply_template_path(@template), method: :post, class: "tb-form" do |f| %>
+      <label class="tb-form__row">
+        <span>Pick any date in the target period</span>
+        <%= date_field_tag :date, Date.current.iso8601 %>
+      </label>
+      <%= f.submit "Apply", class: "tb-form__submit" %>
+    <% end %>
+    <p class="tpl-list__meta" style="margin-top:8px;">
+      This creates real calendar blocks for the
+      <%= @template.period_type %> period containing the date you pick.
+    </p>
+  </div>
+
+  <div class="tb-form__actions" style="margin-top:24px;">
+    <%= link_to "← Templates", templates_path, class: "tb-form__cancel" %>
+    <%= button_to "Delete template", template_path(@template), method: :delete,
+                  class: "tb-form__delete",
+                  data: { turbo_confirm: "Delete this template and all its blocks?" } %>
+  </div>
+</div>

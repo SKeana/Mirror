@@ -14,4 +14,9 @@ Rails.application.routes.draw do
   get "/year",  to: "calendar#year",  as: :year
 
   resources :time_blocks, except: [:index, :show]
+
+  resources :templates, except: [:edit, :update] do
+    member { post :apply }
+    resources :template_blocks, only: [:new, :create, :edit, :update, :destroy]
+  end
 end

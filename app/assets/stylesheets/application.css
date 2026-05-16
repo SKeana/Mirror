@@ -590,6 +590,83 @@ body {
 
 .tb-form__errors p { margin: 4px 0; }
 
+/* ---------- Templates ---------- */
+
+.tb-page--wide { max-width: 760px; }
+
+.tpl-list { list-style: none; padding: 0; margin: 16px 0; }
+
+.tpl-list__item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.tpl-list__name { font-size: 16px; font-weight: 600; color: var(--fg); text-decoration: none; }
+.tpl-list__meta { font-size: 12px; color: var(--muted); }
+
+.tpl-period { display: flex; gap: 10px; margin-top: 6px; }
+
+.tpl-period__opt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tpl-period__label { font-weight: 600; font-size: 14px; }
+.tpl-period__hint  { font-size: 12px; color: var(--muted); }
+
+.tpl-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.tpl-day {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.tpl-day__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.tpl-day__add { font-size: 13px; color: #3b82f6; text-decoration: none; }
+
+.tpl-day__block {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px;
+  margin-top: 4px;
+  background: rgba(127, 127, 127, 0.1);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--fg);
+  font-size: 13px;
+}
+
+.tpl-apply {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.tpl-apply h2 { font-size: 16px; margin: 0 0 8px; }
+
 .calendar__hour-cell:last-child {
   border-bottom: none;
 }

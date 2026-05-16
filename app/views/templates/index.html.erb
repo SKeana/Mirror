@@ -1,0 +1,20 @@
+<div class="tb-page">
+  <h1 class="tb-page__title">Templates</h1>
+
+  <p><%= link_to "+ New template", new_template_path, class: "tb-form__submit", style: "display:inline-block;text-decoration:none;" %></p>
+
+  <% if @templates.any? %>
+    <ul class="tpl-list">
+      <% @templates.each do |t| %>
+        <li class="tpl-list__item">
+          <%= link_to t.name, template_path(t), class: "tpl-list__name" %>
+          <span class="tpl-list__meta"><%= t.period_type.capitalize %> · <%= t.template_blocks.size %> block(s)</span>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No templates yet.</p>
+  <% end %>
+
+  <p style="margin-top:24px;"><%= link_to "← Back to calendar", root_path, class: "tb-form__cancel" %></p>
+</div>

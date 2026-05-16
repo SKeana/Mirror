@@ -1,0 +1,36 @@
+<div class="tb-page">
+  <h1 class="tb-page__title">New template</h1>
+
+  <%= form_with model: @template, class: "tb-form" do |f| %>
+    <% if @template.errors.any? %>
+      <div class="tb-form__errors">
+        <% @template.errors.full_messages.each do |msg| %><p><%= msg %></p><% end %>
+      </div>
+    <% end %>
+
+    <label class="tb-form__row">
+      <span>Name</span>
+      <%= f.text_field :name, required: true, autofocus: true, placeholder: "e.g. My work week" %>
+    </label>
+
+    <fieldset class="tb-form__row" style="border:none;padding:0;margin:0 0 12px;">
+      <span>How do you want to see this template?</span>
+      <div class="tpl-period">
+        <% [["weekly", "Weekly", "1 week"],
+            ["monthly", "Monthly", "1 month"],
+            ["quarterly", "Quarterly", "3 months"]].each do |value, label, hint| %>
+          <label class="tpl-period__opt">
+            <%= f.radio_button :period_type, value %>
+            <span class="tpl-period__label"><%= label %></span>
+            <span class="tpl-period__hint"><%= hint %></span>
+          </label>
+        <% end %>
+      </div>
+    </fieldset>
+
+    <div class="tb-form__actions">
+      <%= f.submit "Continue", class: "tb-form__submit" %>
+      <%= link_to "Cancel", templates_path, class: "tb-form__cancel" %>
+    </div>
+  <% end %>
+</div>

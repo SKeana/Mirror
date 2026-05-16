@@ -1,0 +1,57 @@
+<% weekdays = %w[Sunday Monday Tuesday Wednesday Thursday Friday Saturday] %>
+
+<%= form_with model: [@template, template_block], class: "tb-form" do |f| %>
+  <% if template_block.errors.any? %>
+    <div class="tb-form__errors">
+      <% template_block.errors.full_messages.each do |msg| %><p><%= msg %></p><% end %>
+    </div>
+  <% end %>
+
+  <label class="tb-form__row">
+    <span>Title</span>
+    <%= f.text_field :title, required: true, autofocus: true %>
+  </label>
+
+  <label class="tb-form__row">
+    <span>Day in period</span>
+    <%= f.select :offset_days,
+          options_for_select(
+            (0...@template.period_days).map { |o|
+              lbl = @template.period_type == "weekly" ? weekdays[o % 7] : "Day #{o + 1}"
+              [lbl, o]
+            },
+            template_block.offset_days
+          ) %>
+  </label>
+
+  <div class="tb-form__row tb-form__row--two">
+    <label>
+      <span>Start</span>
+      <%= time_field_tag "template_block[start_time]", template_block.start_time_str, required: true %>
+    </label>
+    <label>
+      <span>End</span>
+      <%= time_field_tag "template_block[end_time]", template_block.end_time_str, required: true %>
+    </label>
+  </div>
+
+  <label class="tb-form__row">
+    <span>Notes</span>
+    <%= f.text_area :notes, rows: 3 %>
+  </label>
+
+  <label class="tb-form__row">
+    <span>Color</span>
+    <%= f.color_field :color, value: (template_block.color.presence || "#3b82f6") %>
+  </label>
+
+  <div class="tb-form__actions">
+    <%= f.submit class: "tb-form__submit" %>
+    <%= link_to "Cancel", template_path(@template), class: "tb-form__cancel" %>
+    <% if template_block.persisted? %>
+      <%= button_to "Delete", template_template_block_path(@template, template_block),
+                    method: :delete, class: "tb-form__delete",
+                    data: { turbo_confirm: "Remove this block?" } %>
+    <% end %>
+  </div>
+<% end %>
