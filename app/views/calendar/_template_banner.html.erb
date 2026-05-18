@@ -1,0 +1,8 @@
+<div class="tpl-banner<%= ' is-empty' if @applied_templates.blank? %>">
+  <% if @applied_templates.present? %>
+    <span class="tpl-banner__label">Template:</span>
+    <% @applied_templates.each do |name| %>
+      <span class="tpl-banner__name"><%= name %></span>
+    <% end %>
+  <% end %>
+</div>

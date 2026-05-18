@@ -62,6 +62,37 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+/* Template banner (the strip below the toolbar) */
+.tpl-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  padding: 4px 12px;
+  background: var(--bg);
+  color: var(--fg);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.tpl-banner.is-empty {
+  min-height: 0;
+  padding: 0;
+  border-bottom: none;
+}
+
+.tpl-banner__label {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.tpl-banner__name {
+  font-weight: 600;
+  background: var(--today-tint);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
 /* Hamburger menu */
 .toolbar__menu { position: relative; }
 

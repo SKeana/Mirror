@@ -13,6 +13,7 @@ class CalendarController < ApplicationController
     range_start = @week_start.beginning_of_day
     range_end   = (@week_start + 7).beginning_of_day
     @blocks_by_day = TimeBlock.overlapping(range_start, range_end).group_by { |b| b.start_at.to_date }
+    @applied_templates = applied_templates(@week_start, @week_start + 7)
   end
 
   def month
@@ -31,6 +32,7 @@ class CalendarController < ApplicationController
     range_start = @grid_start.beginning_of_day
     range_end   = (@grid_start + 42).beginning_of_day
     @blocks_by_day = TimeBlock.overlapping(range_start, range_end).group_by { |b| b.start_at.to_date }
+    @applied_templates = applied_templates(@grid_start, @grid_start + 42)
   end
 
   def year
@@ -49,6 +51,7 @@ class CalendarController < ApplicationController
     @days_with_blocks = TimeBlock
       .overlapping(range_start, range_end)
       .pluck(:start_at).map { |t| t.to_date }.to_set
+    @applied_templates = applied_templates(Date.new(@year, 1, 1), Date.new(@year + 1, 1, 1))
   end
 
   private
@@ -57,5 +60,12 @@ class CalendarController < ApplicationController
     Date.parse(str) if str.present?
   rescue ArgumentError
     nil
+  end
+
+  # Distinct template names whose applied period overlaps [from, to)
+  def applied_templates(from, to)
+    TemplateApplication.overlapping(from, to)
+                       .map { |a| a.template.name }
+                       .uniq
   end
 end

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  template: one
+  period_type: MyString
+  period_start: 2026-05-18
+
+two:
+  template: two
+  period_type: MyString
+  period_start: 2026-05-18

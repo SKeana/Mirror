@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_16_202846) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_18_225733) do
+  create_table "template_applications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "period_start", null: false
+    t.string "period_type", null: false
+    t.integer "template_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["period_start", "period_type"], name: "index_template_applications_on_period_start_and_period_type"
+    t.index ["template_id"], name: "index_template_applications_on_template_id"
+  end
+
   create_table "template_blocks", force: :cascade do |t|
     t.string "color", default: "#3b82f6", null: false
     t.datetime "created_at", null: false
@@ -43,5 +53,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_16_202846) do
     t.index ["start_at"], name: "index_time_blocks_on_start_at"
   end
 
+  add_foreign_key "template_applications", "templates"
   add_foreign_key "template_blocks", "templates"
 end

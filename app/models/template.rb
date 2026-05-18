@@ -5,6 +5,7 @@ class Template < ApplicationRecord
   PERIOD_DAYS = { "weekly" => 7, "monthly" => 31, "quarterly" => 92 }.freeze
 
   has_many :template_blocks, dependent: :destroy
+  has_many :template_applications, dependent: :destroy
 
   validates :name, presence: true
   validates :period_type, inclusion: { in: PERIOD_TYPES }
@@ -25,9 +26,18 @@ class Template < ApplicationRecord
     end
   end
 
-  # Create real TimeBlocks for the period containing `date`.
+  # Create real TimeBlocks for the period containing `date`, and record
+  # that this template now governs that period (so the calendar can show
+  # its name in the banner). Re-applying to the same period is idempotent
+  # for the application record.
   def apply_to(date)
     start = period_start_for(date)
+
+    template_applications.find_or_create_by!(
+      period_type:  period_type,
+      period_start: start
+    )
+
     template_blocks.map do |tb|
       day = start + tb.offset_days
       start_at = Time.zone.local(day.year, day.month, day.day) + tb.start_minute.minutes
